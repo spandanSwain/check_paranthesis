@@ -20,17 +20,21 @@ only_words = [l["word"] for l in list_of_words]
 c = check_opening()
 result = c.check_and_update(list_of_words, "ok.txt")
 
-with open("ok.txt", 'r') as file:
-    lines = file.readlines()
-    for item in result:
-        beg_end_tup = (item["begin_lno"], item["end_lno"])
-        new_begin = f"{lines[beg_end_tup[0]-1]}{item['number']}"
-        new_end = f"{lines[beg_end_tup[1]-1]}{item['number']}"
+if result != "Begin and End mismatch":
+    with open("ok.txt", 'r') as file:
+        lines = file.readlines()
+        for item in result:
+            print("i=",result)
+            beg_end_tup = (item["begin_lno"], item["end_lno"])
+            new_begin = f"{lines[beg_end_tup[0]-1]}{item['number']}"
+            new_end = f"{lines[beg_end_tup[1]-1]}{item['number']}"
 
-        lines[beg_end_tup[0]-1] = lines[beg_end_tup[0]-1].replace(lines[beg_end_tup[0]-1], new_begin)
-        lines[beg_end_tup[1]-1] = lines[beg_end_tup[1]-1].replace(lines[beg_end_tup[1]-1], new_end)
+            lines[beg_end_tup[0]-1] = lines[beg_end_tup[0]-1].replace(lines[beg_end_tup[0]-1], new_begin)
+            lines[beg_end_tup[1]-1] = lines[beg_end_tup[1]-1].replace(lines[beg_end_tup[1]-1], new_end)
 
-with open("result.txt", 'w') as file:
-    file.writelines(lines)
+    with open("result.txt", 'w') as file:
+        file.writelines(lines)
 
-print("DONE")
+    print("DONE")
+else:
+    print(f"Error: {result}")
