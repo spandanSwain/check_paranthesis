@@ -24,7 +24,6 @@ if result != "Begin and End mismatch":
     with open("ok.txt", 'r') as file:
         lines = file.readlines()
         for item in result:
-            print("i=",result)
             beg_end_tup = (item["begin_lno"], item["end_lno"])
             new_begin = f"{lines[beg_end_tup[0]-1]}{item['number']}"
             new_end = f"{lines[beg_end_tup[1]-1]}{item['number']}"
